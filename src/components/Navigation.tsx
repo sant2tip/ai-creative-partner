@@ -16,29 +16,39 @@ export const Navigation = () => {
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-0 left-0 right-0 z-50 glass"
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <a href="#" className="text-2xl font-bold gradient-text">
-            AgencyAI
+            Ingenium AI
           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
+            {navItems.map((item, index) => (
+              <motion.a
                 key={item.label}
                 href={item.href}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-300"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 * index, ease: [0.22, 1, 0.36, 1] }}
+                className="text-muted-foreground hover:text-foreground transition-colors duration-300 relative group"
               >
                 {item.label}
-              </a>
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+              </motion.a>
             ))}
-            <Button variant="hero" size="sm">
-              Get Started
-            </Button>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+            >
+              <Button variant="hero" size="sm">
+                Get Started
+              </Button>
+            </motion.div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -56,6 +66,7 @@ export const Navigation = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="md:hidden pt-4 pb-2"
           >
             {navItems.map((item) => (
